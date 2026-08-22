@@ -43,7 +43,7 @@ from datetime import date
 from pathlib import Path
 from typing import Callable, Protocol
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[1]
 DOWNLOADS = REPO_ROOT / "data" / "downloads"
 DB_PATH = str(REPO_ROOT / "boston.db")
 MODEL = os.environ.get("OLLAMA_MODEL", "granite3.1-dense:8b")

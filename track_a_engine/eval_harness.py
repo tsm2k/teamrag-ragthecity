@@ -41,7 +41,7 @@ from typing import Callable
 
 from lab0_millbrook import judge, naive_rag
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[1]
 QUESTIONS = REPO_ROOT / "lab0_boston" / "questions.json"
 RESULTS_DIR = REPO_ROOT / "eval_runs"
 

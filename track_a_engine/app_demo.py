@@ -16,10 +16,10 @@ from pathlib import Path
 
 import streamlit as st
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO_ROOT))  # so `team.track_a_engine` imports under `streamlit run`
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT))  # so `track_a_engine` imports under `streamlit run`
 
-from team.track_a_engine.router import build  # noqa: E402
+from router import build  # noqa: E402
 
 st.set_page_config(page_title="RAG the City — Track A Engine", page_icon=":gear:")
 st.title("RAG the City — Track A Engine")
