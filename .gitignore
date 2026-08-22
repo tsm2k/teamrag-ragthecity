@@ -6,3 +6,4 @@ data/downloads
 .DS_Store
 data/
 boston.db
+final_data/*_embedded.jsonl
