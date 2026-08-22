@@ -6,6 +6,8 @@ langchain-community
 langchain-ollama
 langchain-text-splitters
 rank_bm25
+duckdb
+psycopg2-binary
 pandas
 requests
 streamlit
