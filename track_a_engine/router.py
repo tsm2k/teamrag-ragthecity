@@ -686,15 +686,11 @@ def make_llm(model: str = MODEL):
 def build(with_llm: bool = True) -> Router:
     con = _connect()
     llm = make_llm() if with_llm else None
-    coll = None
     try:
-        import chromadb
-        client = chromadb.PersistentClient(path=str(REPO_ROOT / ".chroma" / "engine"))
-        coll = client.get_or_create_collection("narrative")
-        if coll.count() == 0:
-            coll = None  # nothing indexed yet; let the lane decline
+        from track_a_engine.pg_narrative import build_collection
+        coll = build_collection()  # Postgres pg_search BM25 + pgvector hybrid, or None if unavailable/empty
     except Exception:
-        pass
+        coll = None
     return Router({"golden": GoldenLane(con), "sql": SqlLane(con, llm),
                    "narrative": NarrativeLane(coll, llm), "graph": GraphLane()}, llm=llm)
 
@@ -709,11 +705,11 @@ def _connect():
     configured laptops get different answers from identical code.
     """
     try:
-        from team.boston import duck
+        from boston import duck
         return duck.connect()
     except Exception as exc:  # fall back so the router still runs standalone
         import duckdb
-        print(f"[!] team.boston.duck unavailable ({type(exc).__name__}) — "
+        print(f"[!] boston.duck unavailable ({type(exc).__name__}) — "
               f"opening {DB_PATH} directly.", file=sys.stderr)
         con = duckdb.connect(DB_PATH)
         con.execute("SET TimeZone='UTC'")
